@@ -1,0 +1,6 @@
+*
+#https://docs.docker.com/engine/reference/builder/#dockerignore-file
+#"Finally, you may want to specify which files to include in the context,
+# rather than which to exclude. To achieve this, specify * as the first pattern,
+# followed by one or more ! exception patterns."
+
