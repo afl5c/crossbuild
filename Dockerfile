@@ -30,6 +30,12 @@ RUN set -x; echo 'Installing Mac build tools...' \
 	&& cd .. \
 	&& rm -rf master.zip osxcross-master/
 
+WORKDIR /root/android
+RUN set -x; echo 'Installing Android build tools...' \
+	&& wget https://dl.google.com/android/repository/android-ndk-r24-linux.zip \
+	&& unzip android-ndk-r24-linux.zip \
+	&& rm -rf android-ndk-r24-linux.zip
+
 RUN echo 'Creating shortcuts...' \
 	&& printf '#!/bin/bash\n\nx86_64-w64-mingw32-gcc $*' > /usr/local/bin/win-gcc \
 	&& printf '#!/bin/bash\n\nx86_64-w64-mingw32-g++ $*' > /usr/local/bin/win-g++ \
@@ -41,6 +47,8 @@ RUN echo 'Creating shortcuts...' \
 	&& printf '#!/bin/bash\n\nPATH=/root/osxcross/target/bin/:/root/osxcross/target/libexec/as/x86_64/:${PATH} \
 		LD_LIBRARY_PATH=/root/osxcross/target/lib:${LD_LIBRARY_PATH} \
 		o64-g++ $*' > /usr/local/bin/mac-g++ \
+	&& printf '#!/bin/bash\n\n/root/android/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android30-clang $*' > /usr/local/bin/and-gcc \
+	&& printf '#!/bin/bash\n\n/root/android/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android30-clang++ $*' > /usr/local/bin/and-g++ \
 	&& chmod 755 /usr/local/bin/*-g*
 
 WORKDIR /workspace
