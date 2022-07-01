@@ -3,7 +3,7 @@
 
 A Docker image for compiling to the following targets:
 
- - Linux, Intel 64-bit
+ - Linux, Intel 64-bit and ARM 64-bit
  - Raspberry Pi (Raspbian), ARM 32-bit
  - Windows (7+), Intel 64-bit
  - MacOS (10.6+), Intel 64-bit
@@ -59,3 +59,11 @@ mac-gcc hello.c
 and-g++ hello.cpp
 and-gcc hello.c
 ```
+
+### ARM Linux
+
+```
+arm-g++ hello.cpp
+arm-gcc hello.c
+```
+

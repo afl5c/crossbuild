@@ -36,6 +36,9 @@ RUN set -x; echo 'Installing Android build tools...' \
 	&& unzip android-ndk-r24-linux.zip \
 	&& rm -rf android-ndk-r24-linux.zip
 
+RUN set -x; echo 'Installing ARM64 build tools...' \
+	&& apt install -y crossbuild-essential-arm64
+
 RUN echo 'Creating shortcuts...' \
 	&& printf '#!/bin/bash\n\nx86_64-w64-mingw32-gcc $*' > /usr/local/bin/win-gcc \
 	&& printf '#!/bin/bash\n\nx86_64-w64-mingw32-g++ $*' > /usr/local/bin/win-g++ \
@@ -49,6 +52,8 @@ RUN echo 'Creating shortcuts...' \
 		o64-g++ $*' > /usr/local/bin/mac-g++ \
 	&& printf '#!/bin/bash\n\n/root/android/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android30-clang $*' > /usr/local/bin/and-gcc \
 	&& printf '#!/bin/bash\n\n/root/android/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android30-clang++ $*' > /usr/local/bin/and-g++ \
+	&& printf '#!/bin/bash\n\naarch64-linux-gnu-gcc $*' > /usr/local/bin/arm-gcc \
+	&& printf '#!/bin/bash\n\naarch64-linux-gnu-g++ $*' > /usr/local/bin/arm-g++ \
 	&& chmod 755 /usr/local/bin/*-g*
 
 WORKDIR /workspace
